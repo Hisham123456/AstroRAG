@@ -6,8 +6,8 @@ Chaque section peut devenir une issue GitHub. Il n’est pas nécessaire de cré
 
 - [x] Sélectionner 20 à 30 articles d’astronomie en français.
 - [x] Enregistrer la liste des sources dans le dépôt.
-- [ ] Créer un script de récupération et de nettoyage des textes.
-- [ ] Conserver les métadonnées des sources et leur attribution.
+- [x] Créer un script de récupération et de nettoyage des textes.
+- [x] Conserver les métadonnées des sources et leur attribution.
 
 Validation : le corpus peut être reconstruit à partir des scripts et de la liste des sources.
 

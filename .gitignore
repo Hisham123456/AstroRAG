@@ -17,6 +17,7 @@ dist/
 # Données téléchargées et index générés
 data/raw/
 data/processed/
+data/collection_report.json
 data/index/
 .chroma/
 chroma_db/
