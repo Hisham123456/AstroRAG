@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Comment le Soleil produit-il son énergie ?",
+    "expected_articles": ["soleil", "etoile"],
+    "relevant_terms": ["fusion"]
+  },
+  {
+    "question": "Pourquoi une comète développe-t-elle une queue près du Soleil ?",
+    "expected_articles": ["comete"],
+    "relevant_terms": ["sublim", "vent solaire"]
+  },
+  {
+    "question": "Qu'est-ce qui empêche la lumière de sortir d'un trou noir ?",
+    "expected_articles": ["trou-noir"],
+    "relevant_terms": ["horizon", "gravitation"]
+  },
+  {
+    "question": "Pourquoi voit-on toujours la même face de la Lune ?",
+    "expected_articles": ["lune"],
+    "relevant_terms": ["synchrone", "rotation"]
+  },
+  {
+    "question": "Comment détecte-t-on une exoplanète par la méthode des transits ?",
+    "expected_articles": ["exoplanete"],
+    "relevant_terms": ["transit"]
+  },
+  {
+    "question": "De quoi est principalement composée l'atmosphère de Mars ?",
+    "expected_articles": ["mars"],
+    "relevant_terms": ["dioxyde de carbone", "CO2"]
+  },
+  {
+    "question": "Que représente la Grande Tache rouge de Jupiter ?",
+    "expected_articles": ["jupiter"],
+    "relevant_terms": ["anticycl", "tempête"]
+  },
+  {
+    "question": "Quelle est la forme de notre galaxie, la Voie lactée ?",
+    "expected_articles": ["voie-lactee", "galaxie"],
+    "relevant_terms": ["spiral"]
+  },
+  {
+    "question": "Pourquoi le télescope James Webb observe-t-il dans l'infrarouge ?",
+    "expected_articles": ["james-webb"],
+    "relevant_terms": ["infrarouge"]
+  },
+  {
+    "question": "Qu'est-ce qu'une naine blanche et comment se forme-t-elle ?",
+    "expected_articles": ["naine-blanche"],
+    "relevant_terms": ["évolution", "effondre", "géante rouge"]
+  }
+]

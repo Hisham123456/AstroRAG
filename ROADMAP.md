@@ -14,11 +14,13 @@ Validation : le corpus peut être reconstruit à partir des scripts et de la lis
 ## v0.2.0 — Rechercher les passages pertinents
 
 - [x] Découper les textes en passages en conservant leur source.
-- [ ] Calculer les embeddings avec un modèle adapté au français.
-- [ ] Enregistrer un index local.
-- [ ] Afficher les passages retrouvés pour une question.
+- [x] Calculer les embeddings avec un modèle adapté au français.
+- [x] Enregistrer un index local.
+- [x] Afficher les passages retrouvés pour une question.
 
 Validation : sur une dizaine de questions préparées à l’avance, vérifier si les passages contenant les réponses sont retrouvés et noter les échecs.
+
+Vérifié sur les dix questions de `data/evaluation_questions.json` : des passages utiles sont retrouvés dans les cinq premiers résultats. Le contrôle automatique est indicatif ; la relecture montre que l’explication des transits arrive au rang 2 et que les passages utiles sur l’infrarouge de James Webb arrivent aux rangs 3 et 4. Le premier résultat peut rester incomplet.
 
 ## v0.3.0 — Générer des réponses avec sources
 

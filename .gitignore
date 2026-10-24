@@ -22,6 +22,7 @@ data/collection_report.json
 data/index/
 .chroma/
 chroma_db/
+.cache/
 
 # Éditeurs et système
 .idea/

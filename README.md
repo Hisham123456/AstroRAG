@@ -12,7 +12,7 @@ L’objectif est de répondre à des questions en français à partir d’une pe
 - Un signalement lorsque les documents ne permettent pas de répondre.
 - Une interface simple pour poser des questions.
 
-La sélection des sources, la collecte et le découpage des textes sont prêts. Les embeddings, la recherche et la génération des réponses restent à réaliser.
+La sélection des sources, la collecte, le découpage, les embeddings et la recherche sont prêts. La génération des réponses reste à réaliser.
 
 ## Suivi du projet
 
@@ -101,6 +101,52 @@ Pour essayer d’autres paramètres :
 ```
 
 La limite porte sur les mots du passage, hors titres. Elle ne garantit pas une limite en tokens : il faudra vérifier celle du modèle d’embeddings choisi. Les fichiers générés restent locaux et sont ignorés par Git.
+
+## Calculer les embeddings et rechercher
+
+Mettre à jour les bibliothèques de l’environnement existant :
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Construire l’index :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/semantic_search.py build
+```
+
+Le premier lancement télécharge le modèle public [intfloat/multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small). Aucune clé d’API n’est nécessaire. Les fichiers du modèle restent dans `.cache/models/`, hors du suivi Git. Le calcul utilise le processeur de l’ordinateur.
+
+Chaque passage est présenté au modèle avec les titres de l’article et de la section, précédés de `passage: `. Les questions sont précédées de `query: `, comme le demande ce modèle. Le modèle produit des vecteurs de 384 coordonnées. Le script les normalise pour que chacun ait une norme de 1.
+
+Le modèle accepte au plus 512 tokens. Le script compte les tokens, titres et préfixe compris, et redécoupe les passages trop longs avant le calcul. Ce second découpage conserve les références et les positions dans l’article nettoyé. Il ne rajoute pas de chevauchement à l’intérieur d’un passage redécoupé. Le nombre d’entrées dans l’index peut donc dépasser le nombre de passages initiaux. Le texte n’est pas tronqué silencieusement.
+
+L’index local `data/index/embeddings.npz` réunit la matrice des vecteurs, les passages correspondants et les paramètres du modèle. La version du modèle utilisée est enregistrée et réutilisée pour encoder les questions. Pour ce petit corpus, une matrice NumPy suffit à effectuer une recherche exacte ; une base vectorielle séparée n’est pas nécessaire à ce stade.
+
+Poser une question et afficher les trois premiers résultats :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/semantic_search.py search "Comment le Soleil produit-il son énergie ?" --top-k 3
+```
+
+La recherche fonctionne hors ligne après la construction de l’index. Elle calcule le vecteur de la question avec le même modèle, puis les scores par `scores = embeddings @ query_vector`. Comme les vecteurs ont une norme de 1, ces produits scalaires sont des similarités cosinus. Les passages sont classés du score le plus élevé au plus faible. Le terminal affiche le texte, la section et la source exacte de chaque résultat.
+
+Les scores ne sont pas des probabilités de réponse correcte. La recherche renvoie les meilleurs résultats disponibles, même si aucun ne répond à la question. Cette étape ne génère pas encore de réponse rédigée.
+
+Après un changement des sources, des textes ou du découpage, il faut refaire le découpage si nécessaire, puis reconstruire l’index. La recherche détecte ces changements et refuse d’utiliser un index devenu ancien.
+
+## Contrôler la recherche
+
+Les dix questions de départ sont dans `data/evaluation_questions.json`. Elles précisent les articles attendus et quelques mots-clés à vérifier. Pour les exécuter :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/semantic_search.py evaluate --top-k 5
+```
+
+Le bilan est enregistré dans `data/index/evaluation.json`. Le contrôle automatique vérifie seulement qu’un des cinq premiers passages vient d’un article attendu et contient un terme pertinent. Il faut aussi relire les passages pour vérifier qu’ils répondent réellement aux questions : un score de réussite sur ce contrôle n’est pas une mesure complète de qualité du RAG.
+
+Vérification initiale du 24 octobre 2026 : les 1 109 passages donnent 1 174 entrées adaptées à la limite de 512 tokens, avec des vecteurs de dimension 384. Les dix questions passent le contrôle indicatif dans les cinq premiers résultats. La relecture retrouve notamment l’explication des transits d’exoplanètes au rang 2 et des informations expliquant l’intérêt de l’infrarouge pour James Webb aux rangs 3 et 4. Le premier résultat n’est donc pas toujours le plus utile. La recherche sur l’énergie du Soleil retrouve dès le rang 1 un passage sur la fusion de l’hydrogène en hélium.
 
 ## Vérifications hors ligne
 
