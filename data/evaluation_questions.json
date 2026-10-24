@@ -1,5 +1,10 @@
 [
   {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "expected_articles": ["systeme-solaire"],
+    "relevant_terms": ["Mercure (0,4 au) est la planète la plus proche du Soleil"]
+  },
+  {
     "question": "Comment le Soleil produit-il son énergie ?",
     "expected_articles": ["soleil", "etoile"],
     "relevant_terms": ["fusion"]

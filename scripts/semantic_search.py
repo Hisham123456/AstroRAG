@@ -1,12 +1,15 @@
 """Construire des embeddings locaux et rechercher des passages en français."""
 
 import argparse
+from collections import Counter, defaultdict
+from functools import lru_cache
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
 import sys
+import unicodedata
 
 import numpy as np
 
@@ -20,6 +23,77 @@ ROOT = Path(__file__).resolve().parents[1]
 MODEL_ID = "intfloat/multilingual-e5-small"
 MODEL_REVISION = "614241f622f53c4eeff9890bdc4f31cfecc418b3"
 INDEX_PATH = ROOT / "data/index/embeddings.npz"
+STOP_WORDS = set("a au aux avec ce ces cette dans de des du elle en est et etre il la le les on ou par pour qu que quel quelle quelles quels qui quoi sa se ses son sont sur un une comment pourquoi combien".split())
+
+
+def lexical_tokens(text):
+    """Normaliser accents et pluriels simples, sans effacer les comparatifs."""
+    text = unicodedata.normalize("NFKD", text.casefold())
+    text = "".join(char for char in text if not unicodedata.combining(char))
+    tokens = re.findall(r"[a-z0-9]+", text)
+    return [word[:-1] if len(word) > 4 and word.endswith("s") and word != "moins" else word
+            for word in tokens if len(word) > 1 and word not in STOP_WORDS]
+
+
+class LexicalIndex:
+    """BM25 : privilégier les mots utiles, rares et présents dans le passage."""
+
+    def __init__(self, texts):
+        self.lengths = np.zeros(len(texts), dtype=np.float32)
+        self.postings = defaultdict(list)
+        self.phrases = []
+        for index, text in enumerate(texts):
+            tokens = lexical_tokens(text)
+            counts = Counter(tokens)
+            self.phrases.append(" " + " ".join(tokens) + " ")
+            self.lengths[index] = sum(counts.values())
+            for word, frequency in counts.items():
+                self.postings[word].append((index, frequency))
+        self.average_length = max(float(self.lengths.mean()), 1.0)
+
+    def scores(self, question):
+        scores = np.zeros(len(self.lengths), dtype=np.float32)
+        k1, b = 1.5, 0.75
+        query_tokens = lexical_tokens(question)
+        phrase_weight = 0.0
+        for word in set(query_tokens):
+            postings = self.postings.get(word, [])
+            if not postings:
+                continue
+            inverse_frequency = np.log(1 + (len(scores) - len(postings) + 0.5) / (len(postings) + 0.5))
+            phrase_weight += inverse_frequency
+            for index, frequency in postings:
+                length_factor = 1 - b + b * self.lengths[index] / self.average_length
+                scores[index] += inverse_frequency * frequency * (k1 + 1) / (frequency + k1 * length_factor)
+        # Préserver une relation courte comme « planète la plus proche du Soleil ».
+        # Les mots fréquents seuls ne suffisent pas : leur ordre porte aussi du sens.
+        if 3 <= len(query_tokens) <= 8:
+            phrase = " " + " ".join(query_tokens) + " "
+            for index, text in enumerate(self.phrases):
+                if phrase in text:
+                    scores[index] += 2 * phrase_weight
+        return scores
+
+
+@lru_cache(maxsize=1)
+def cached_lexical_index(texts):
+    # Construit une fois par corpus ; aucun poids ni embedding n'est recalculé.
+    return LexicalIndex(texts)
+
+
+def hybrid_ranking(semantic_scores, lexical_scores, top_k):
+    """Fusionner les classements, plutôt que des scores d'échelles différentes."""
+    semantic_order = np.argsort(-semantic_scores, kind="stable")
+    lexical_order = np.argsort(-lexical_scores, kind="stable")
+    fused = np.zeros(len(semantic_scores), dtype=np.float32)
+    # Reciprocal Rank Fusion : un passage retrouvé par les deux méthodes gagne en poids.
+    for rank, index in enumerate(semantic_order[:50], 1):
+        fused[index] += 1 / (60 + rank)
+    for rank, index in enumerate(lexical_order[:50], 1):
+        if lexical_scores[index] > 0:
+            fused[index] += 1 / (60 + rank)
+    order = np.lexsort((-semantic_scores, -fused))[:top_k]
+    return order, fused
 
 
 def contextualize(chunk, text):
@@ -228,7 +302,20 @@ def search(question, encoder, index, top_k=5):
     if encoder.model_id != manifest["model_id"] or encoder.revision != manifest["model_revision"]:
         raise ValueError("La question et les passages doivent utiliser le même modèle et la même révision.")
     query = encoder.encode([question.strip()], manifest["query_prefix"])[0]
-    return rank_passages(vectors, query, chunks, top_k)
+    if top_k < 1:
+        raise ValueError("Le nombre de résultats doit être positif.")
+    semantic_hits = rank_passages(vectors, query, chunks, top_k)
+    # Conserver le cosinus dans 'score' pour les diagnostics et la compatibilité.
+    semantic_scores = vectors @ (query / np.linalg.norm(query))
+    texts = tuple(chunk["contextualized_text"] for chunk in chunks)
+    lexical_scores = cached_lexical_index(texts).scores(question)
+    if not np.any(lexical_scores):
+        return semantic_hits[:top_k]
+    order, fusion_scores = hybrid_ranking(semantic_scores, lexical_scores, top_k)
+    return [{
+        "score": float(semantic_scores[i]), "retrieval_score": float(fusion_scores[i]),
+        "lexical_score": float(lexical_scores[i]), "chunk": chunks[i],
+    } for i in order]
 
 
 def evaluate(encoder, index, top_k=5):
@@ -244,6 +331,7 @@ def evaluate(encoder, index, top_k=5):
         results.append({**item, "matched": matched, "hits": hits})
         print(f"{'OK' if matched else 'À REVOIR'} — {item['question']}", flush=True)
     report = {
+        "retrieval_method": "hybrid_bm25_phrase_rrf",
         "description": "Contrôle indicatif : article attendu et mot-clé pertinent dans un passage du top-k. Une relecture reste nécessaire.",
         "top_k": top_k, "matched": sum(item["matched"] for item in results),
         "total": len(results), "results": results,
@@ -280,7 +368,11 @@ def main():
                 hits = search(args.question, encoder, index, args.top_k)
                 for position, hit in enumerate(hits, 1):
                     chunk = hit["chunk"]
-                    print(f"\n{position}. Score {hit['score']:.4f} — {chunk['title']}")
+                    print(f"\n{position}. {chunk['title']}")
+                    if "retrieval_score" in hit:
+                        print(f"Classement hybride : {hit['retrieval_score']:.4f} ; cosinus : {hit['score']:.4f}")
+                    else:
+                        print(f"Cosinus : {hit['score']:.4f}")
                     print("Section : " + " > ".join(chunk["section_path"]))
                     print("Source : " + chunk["revision_url"])
                     print(chunk["text"])

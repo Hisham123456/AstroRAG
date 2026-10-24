@@ -233,7 +233,7 @@ def evaluate_answers(encoder, index, api_key, top_k=5):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("question", nargs="?")
-    parser.add_argument("--evaluate", action="store_true", help="Tester les trois questions de génération (trois appels Gemini).")
+    parser.add_argument("--evaluate", action="store_true", help="Tester les questions de génération (un appel Gemini par question).")
     parser.add_argument("--top-k", type=int, default=5, help="Nombre de passages transmis (1 à 10).")
     parser.add_argument("--dry-run", action="store_true", help="Préparer les passages sans appeler Gemini.")
     parser.add_argument("--show-passages", action="store_true", help="Afficher les passages transmis pour vérifier les citations.")

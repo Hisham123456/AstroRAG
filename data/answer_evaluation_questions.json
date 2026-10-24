@@ -1,5 +1,10 @@
 [
   {
+    "question": "Quelle est la planète la plus proche du Soleil ?",
+    "expected_answerable": true,
+    "manual_check": "La réponse doit identifier Mercure et citer le passage qui indique explicitement qu'elle est la planète la plus proche du Soleil."
+  },
+  {
     "question": "Comment le Soleil produit-il son énergie ?",
     "expected_answerable": true,
     "manual_check": "Vérifier la fusion de l'hydrogène en hélium et que les références soutiennent chaque affirmation."

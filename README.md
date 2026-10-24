@@ -151,7 +151,9 @@ Poser une question et afficher les trois premiers résultats :
 .\.venv\Scripts\python.exe scripts/semantic_search.py search "Comment le Soleil produit-il son énergie ?" --top-k 3
 ```
 
-La recherche fonctionne hors ligne après la construction de l’index. Elle calcule le vecteur de la question avec le même modèle, puis les scores par `scores = embeddings @ query_vector`. Comme les vecteurs ont une norme de 1, ces produits scalaires sont des similarités cosinus. Les passages sont classés du score le plus élevé au plus faible. Le terminal affiche le texte, la section et la source exacte de chaque résultat.
+La recherche fonctionne hors ligne après la construction de l’index. Elle calcule le vecteur de la question avec le même modèle, puis les scores par `scores = embeddings @ query_vector`. Comme les vecteurs ont une norme de 1, ces produits scalaires sont des similarités cosinus. Elle combine ce classement avec une recherche lexicale BM25 : les accents et les pluriels simples sont normalisés, et les expressions courtes retrouvées dans le même ordre reçoivent un bonus. Les deux listes de résultats sont fusionnées par Reciprocal Rank Fusion (RRF), avec une constante de 60 et jusqu’à 50 candidats de chaque côté. Le terminal affiche le score de classement hybride et le cosinus séparément. Ces deux valeurs ne sont pas des probabilités de réponse correcte.
+
+Cette combinaison évite certains oublis de la recherche vectorielle seule. Par exemple, à la question « Quelle est la planète la plus proche du Soleil ? », le passage qui répond explicitement « Mercure » était au rang 18 et n’était pas transmis à Gemini. Il est désormais dans les cinq passages retenus. Il n’y a pas de réponse codée en dur : seuls les passages effectivement retrouvés servent à la génération. Le petit index lexical est construit en mémoire et réutilisé ; aucune nouvelle bibliothèque, base externe ou reconstruction des embeddings n’est nécessaire. Principe de fusion : [documentation RRF](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion).
 
 Les scores ne sont pas des probabilités de réponse correcte. La recherche renvoie les meilleurs résultats disponibles, même si aucun ne répond à la question. Cette étape ne génère pas encore de réponse rédigée.
 
@@ -159,7 +161,7 @@ Après un changement des sources, des textes ou du découpage, il faut refaire l
 
 ## Contrôler la recherche
 
-Les dix questions de départ sont dans `data/evaluation_questions.json`. Elles précisent les articles attendus et quelques mots-clés à vérifier. Pour les exécuter :
+Les onze questions de contrôle sont dans `data/evaluation_questions.json`, dont le cas de Mercure ajouté pour éviter sa régression. Elles précisent les articles attendus et quelques mots-clés à vérifier. Pour les exécuter :
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/semantic_search.py evaluate --top-k 5
@@ -223,13 +225,13 @@ La prévisualisation est enregistrée dans `data/generation/request_preview.json
 
 ## Vérifier les réponses générées
 
-Trois questions sont définies dans `data/answer_evaluation_questions.json` : énergie solaire, transits d’exoplanètes et température future précise de Mars, absente du corpus.
+Quatre questions sont définies dans `data/answer_evaluation_questions.json` : planète la plus proche du Soleil, énergie solaire, transits d’exoplanètes et température future précise de Mars, absente du corpus.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/answer_question.py --evaluate
 ```
 
-Cette commande effectue trois appels Gemini, espacés de dix secondes, et enregistre `data/generation/evaluation.json`. Le contrôle automatique vérifie le format, les références et le statut d’abstention attendu. Les critères de relecture de chaque question sont inclus dans le fichier de questions. Il faut ensuite vérifier manuellement les affirmations et leurs sources.
+Cette commande effectue quatre appels Gemini, espacés de dix secondes, et enregistre `data/generation/evaluation.json`. Le contrôle automatique vérifie le format, les références et le statut d’abstention attendu. Les critères de relecture de chaque question sont inclus dans le fichier de questions. Il faut ensuite vérifier manuellement les affirmations et leurs sources.
 
 Vérification initiale du 24 octobre 2026 : les trois questions ont donné le statut attendu. La relecture des réponses et des sources confirme la fusion de l’hydrogène dans le Soleil, l’explication du transit par une diminution périodique de luminosité et l’abstention pour la température précise de Mars en 2100. Cela constitue un premier contrôle sur trois exemples, pas une garantie pour toutes les questions.
 
