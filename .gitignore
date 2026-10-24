@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Configuration privée
+.env
+.env.*
+!.env.example
+
+# Données téléchargées et index générés
+data/raw/
+data/processed/
+data/index/
+.chroma/
+chroma_db/
+
+# Éditeurs et système
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
