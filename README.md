@@ -12,7 +12,7 @@ L’objectif est de répondre à des questions en français à partir d’une pe
 - Un signalement lorsque les documents ne permettent pas de répondre.
 - Une interface simple pour poser des questions.
 
-La sélection des sources et le script de collecte sont prêts. La recherche et la génération des réponses restent à réaliser.
+La sélection des sources, la collecte et le découpage des textes sont prêts. Les embeddings, la recherche et la génération des réponses restent à réaliser.
 
 ## Suivi du projet
 
@@ -72,10 +72,40 @@ Une collecte fraîche peut récupérer des révisions différentes. Les identifi
 
 Les requêtes sont séquentielles, identifiées par le nom du projet, espacées d’au moins une seconde et réessayées en cas de problème temporaire, avec trois essais au maximum.
 
+## Découper les articles en passages
+
+Après la collecte, lancer :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/chunk_documents.py
+```
+
+Cette étape fonctionne hors ligne, sans nouvelle bibliothèque. Elle lit uniquement les articles de la sélection actuelle. Si un article manque ou ne correspond plus à la sélection, le script s’arrête avant de remplacer les résultats. Les résultats d’un lancement précédent restent alors présents : il faut corriger l’erreur et relancer avant de les utiliser.
+
+Les passages suivent les sections et sous-sections de chaque article. Dans une section longue, le script regroupe les paragraphes jusqu’à 300 mots, en préférant une fin de paragraphe ou de phrase. Deux passages peuvent partager jusqu’à 40 mots de phrases entières. Le chevauchement peut être plus court ou nul si aucune phrase entière ne tient dans cette limite ; il ne franchit jamais une limite de section.
+
+Une section courte reste courte afin de ne pas mélanger deux sujets. Une phrase dépassant la limite doit être coupée entre deux mots : ces cas sont comptés dans le rapport. La détection des phrases utilise des règles simples avec quelques abréviations françaises ; elle ne constitue pas une analyse linguistique complète.
+
+Le script crée dans `data/chunks/` :
+
+- `chunks.json` : tous les passages avec leurs métadonnées.
+- `report.json` : le nombre de passages, leurs tailles et les paramètres utilisés.
+- `preview.md` : dix exemples répartis sur le corpus, à relire pour évaluer le découpage.
+
+Chaque passage contient son texte (`text`), le chemin de ses titres (`section_path`), la source, la révision, la licence et l’attribution. Ses positions `char_start` et `char_end` permettent de retrouver exactement le texte dans l’article nettoyé : `article["text"][char_start:char_end]`. Son identifiant est reproductible pour les mêmes données et paramètres. Le champ `contextualized_text` ajoute le titre de l’article et celui de la section au texte : c’est le contenu prévu pour la recherche et les réponses.
+
+Pour essayer d’autres paramètres :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/chunk_documents.py --chunk-size 250 --overlap 30
+```
+
+La limite porte sur les mots du passage, hors titres. Elle ne garantit pas une limite en tokens : il faudra vérifier celle du modèle d’embeddings choisi. Les fichiers générés restent locaux et sont ignorés par Git.
+
 ## Vérifications hors ligne
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Ces vérifications couvrent notamment le nettoyage, les révisions, les pages d’homonymie, la reprise depuis le cache et les erreurs réseau.
+Ces vérifications couvrent notamment le nettoyage, les révisions, les pages d’homonymie, la reprise depuis le cache, les erreurs réseau, la conservation du texte lors du découpage, le chevauchement et les sources des passages.

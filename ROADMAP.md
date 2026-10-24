@@ -13,7 +13,7 @@ Validation : le corpus peut être reconstruit à partir des scripts et de la lis
 
 ## v0.2.0 — Rechercher les passages pertinents
 
-- [ ] Découper les textes en passages en conservant leur source.
+- [x] Découper les textes en passages en conservant leur source.
 - [ ] Calculer les embeddings avec un modèle adapté au français.
 - [ ] Enregistrer un index local.
 - [ ] Afficher les passages retrouvés pour une question.
