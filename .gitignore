@@ -24,6 +24,8 @@ data/generation/
 .chroma/
 chroma_db/
 .cache/
+.impeccable/review/
+.impeccable/mocks/
 
 # Éditeurs et système
 .idea/

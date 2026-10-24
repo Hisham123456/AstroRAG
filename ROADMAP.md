@@ -35,10 +35,10 @@ Vérification initiale : trois essais réels avec `gemini-3.5-flash-lite`, sur l
 
 ## v1.0.0 — Livrer une démonstration utilisable
 
-- [ ] Ajouter une interface de discussion avec affichage des passages sources.
-- [ ] Documenter l’installation, la configuration et le lancement.
+- [x] Ajouter une interface de discussion avec affichage des passages sources.
+- [x] Documenter l’installation, la configuration et le lancement.
 - [ ] Évaluer le système sur une quinzaine de questions, dont des questions sans réponse dans le corpus.
-- [ ] Ajouter une capture de démonstration et les limites connues au README.
+- [x] Ajouter une capture de démonstration et les limites connues au README.
 
 Validation : une autre personne peut installer et lancer le projet en suivant le README.
 

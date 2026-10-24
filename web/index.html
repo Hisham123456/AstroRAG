@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#213c68">
+  <title>AstroRAG — Une question sur l’Univers</title>
+  <link rel="icon" type="image/svg+xml" href="/static/orbit.svg">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#question">Aller à la question</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="AstroRAG, accueil">
+      <img src="/static/orbit.svg" width="36" height="36" alt="">
+      <span>AstroRAG</span>
+    </a>
+    <span class="header-description">L’astronomie, sources à l’appui.</span>
+    <button class="new-chat" id="new-chat" type="button">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>
+      Nouvelle discussion
+    </button>
+  </header>
+
+  <main class="workspace">
+    <section class="conversation" aria-label="Discussion">
+      <div class="conversation-scroll" id="conversation-scroll">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark" aria-hidden="true">
+            <svg viewBox="0 0 140 100"><ellipse cx="70" cy="50" rx="58" ry="23" transform="rotate(-25 70 50)"/><circle cx="70" cy="50" r="19"/><circle class="satellite" cx="117" cy="22" r="6"/></svg>
+          </div>
+          <h1>Une question sur l’Univers&nbsp;?</h1>
+          <p>Des étoiles aux galaxies, explorez l’astronomie à partir d’articles documentés. Chaque réponse vous invite à remonter à ses sources.</p>
+          <div class="suggestions" aria-label="Questions pour commencer">
+            <button type="button" data-question="Comment le Soleil produit-il son énergie ?"><span>Le Soleil</span>Comment produit-il son énergie ?<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6"/></svg></button>
+            <button type="button" data-question="Pourquoi voit-on toujours la même face de la Lune ?"><span>La Lune</span>Pourquoi voit-on la même face ?<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6"/></svg></button>
+            <button type="button" data-question="Comment détecte-t-on une exoplanète par la méthode des transits ?"><span>Les exoplanètes</span>Comment les découvre-t-on ?<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div id="messages" role="log" aria-label="Échanges de la discussion" aria-live="polite" aria-relevant="additions"></div>
+      </div>
+
+      <div class="composer-area">
+        <div class="model-status" id="model-status" role="status"><span class="status-dot"></span><span id="status-text">Préparation de la recherche…</span></div>
+        <form id="question-form" class="composer">
+          <label class="sr-only" for="question">Votre question sur l’astronomie</label>
+          <textarea id="question" name="question" rows="1" maxlength="1000" placeholder="Votre question sur l’astronomie…" required disabled></textarea>
+          <button class="send-button" id="send" type="submit" aria-label="Envoyer la question" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+          </button>
+        </form>
+        <p class="composer-note">Les réponses peuvent être incomplètes. Consultez les passages cités.</p>
+        <p class="keyboard-note">Entrée pour envoyer. Maj + Entrée pour revenir à la ligne.</p>
+      </div>
+    </section>
+
+    <aside class="sources-panel" id="sources-panel" aria-labelledby="sources-heading">
+      <div class="sources-top"><h2 id="sources-heading">Les sources</h2><span class="source-count" id="source-count" hidden></span></div>
+      <p class="sources-intro">Une référence dans la réponse ouvre le passage qui l’accompagne.</p>
+      <button class="back-to-chat" id="back-to-chat" type="button">Revenir à la réponse</button>
+      <div id="sources-content" class="sources-content">
+        <div class="sources-empty" id="sources-empty">
+          <svg class="book-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 12c-6-4-12-4-18-2v28c6-2 12-2 18 2 6-4 12-4 18-2V10c-6-2-12-2-18 2Zm0 0v28M12 17c3-.3 5 0 7 1m-7 6c3-.3 5 0 7 1m10-7c2-1 4-1.3 7-1m-7 8c2-1 4-1.3 7-1"/></svg>
+          <h3>Gardez un œil sur les preuves.</h3>
+          <p>Les extraits utilisés apparaîtront ici dès la première réponse.</p>
+        </div>
+      </div>
+      <div class="sources-footer"><span id="corpus-count">Le corpus d’astronomie</span><p>Wikipédia en français. Liens vers les versions utilisées.</p></div>
+    </aside>
+  </main>
+</body>
+</html>

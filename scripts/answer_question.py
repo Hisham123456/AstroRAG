@@ -127,8 +127,7 @@ def validate_answer(answer, sources):
     return answer
 
 
-def generate_answer(question, sources, api_key, post=None):
-    payload = build_request(question, sources)
+def request_json(payload, api_key, post=None):
     if post is None:
         post = requests.post
     # La clé reste dans l'en-tête HTTP, jamais dans l'URL, le prompt ou les fichiers de résultats.
@@ -157,8 +156,13 @@ def generate_answer(question, sources, api_key, post=None):
         answer = json.loads(text)
     except (KeyError, IndexError, TypeError, requests.exceptions.JSONDecodeError, json.JSONDecodeError):
         raise ValueError("Gemini n'a pas fourni une réponse structurée exploitable.") from None
-    validate_answer(answer, sources)
     return answer, data.get("usageMetadata", {})
+
+
+def generate_answer(question, sources, api_key, post=None):
+    answer, usage = request_json(build_request(question, sources), api_key, post=post)
+    validate_answer(answer, sources)
+    return answer, usage
 
 
 def format_answer(answer, sources):

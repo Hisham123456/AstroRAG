@@ -1,0 +1,475 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T19:09:40.027Z",
+  "title": "Design System: AstroRAG",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier froid",
+        "tonalRamp": [
+          "oklch(15% 0.00759 241.66)",
+          "oklch(26.43% 0.00759 241.66)",
+          "oklch(37.86% 0.00759 241.66)",
+          "oklch(49.29% 0.00759 241.66)",
+          "oklch(60.71% 0.00759 241.66)",
+          "oklch(72.14% 0.00759 241.66)",
+          "oklch(83.57% 0.00759 241.66)",
+          "oklch(95% 0.00759 241.66)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Blanc de lecture",
+        "tonalRamp": [
+          "oklch(15% 0.00000 0.00)",
+          "oklch(26.43% 0.00000 0.00)",
+          "oklch(37.86% 0.00000 0.00)",
+          "oklch(49.29% 0.00000 0.00)",
+          "oklch(60.71% 0.00000 0.00)",
+          "oklch(72.14% 0.00000 0.00)",
+          "oklch(83.57% 0.00000 0.00)",
+          "oklch(95% 0.00000 0.00)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "tonalRamp": [
+          "oklch(15% 0.05579 258.95)",
+          "oklch(26.43% 0.05579 258.95)",
+          "oklch(37.86% 0.05579 258.95)",
+          "oklch(49.29% 0.05579 258.95)",
+          "oklch(60.71% 0.05579 258.95)",
+          "oklch(72.14% 0.05579 258.95)",
+          "oklch(83.57% 0.05579 258.95)",
+          "oklch(95% 0.05579 258.95)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Encre secondaire",
+        "tonalRamp": [
+          "oklch(15% 0.04161 253.67)",
+          "oklch(26.43% 0.04161 253.67)",
+          "oklch(37.86% 0.04161 253.67)",
+          "oklch(49.29% 0.04161 253.67)",
+          "oklch(60.71% 0.04161 253.67)",
+          "oklch(72.14% 0.04161 253.67)",
+          "oklch(83.57% 0.04161 253.67)",
+          "oklch(95% 0.04161 253.67)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Bleu de couverture",
+        "tonalRamp": [
+          "oklch(15% 0.08347 259.70)",
+          "oklch(26.43% 0.08347 259.70)",
+          "oklch(37.86% 0.08347 259.70)",
+          "oklch(49.29% 0.08347 259.70)",
+          "oklch(60.71% 0.08347 259.70)",
+          "oklch(72.14% 0.08347 259.70)",
+          "oklch(83.57% 0.08347 259.70)",
+          "oklch(95% 0.08347 259.70)"
+        ]
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Bleu de lecture",
+        "tonalRamp": [
+          "oklch(15% 0.13170 262.67)",
+          "oklch(26.43% 0.13170 262.67)",
+          "oklch(37.86% 0.13170 262.67)",
+          "oklch(49.29% 0.13170 262.67)",
+          "oklch(60.71% 0.13170 262.67)",
+          "oklch(72.14% 0.13170 262.67)",
+          "oklch(83.57% 0.13170 262.67)",
+          "oklch(95% 0.13170 262.67)"
+        ]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "Ambre de repérage",
+        "tonalRamp": [
+          "oklch(15% 0.13773 79.89)",
+          "oklch(26.43% 0.13773 79.89)",
+          "oklch(37.86% 0.13773 79.89)",
+          "oklch(49.29% 0.13773 79.89)",
+          "oklch(60.71% 0.13773 79.89)",
+          "oklch(72.14% 0.13773 79.89)",
+          "oklch(83.57% 0.13773 79.89)",
+          "oklch(95% 0.13773 79.89)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Filet",
+        "tonalRamp": [
+          "oklch(15% 0.01868 250.61)",
+          "oklch(26.43% 0.01868 250.61)",
+          "oklch(37.86% 0.01868 250.61)",
+          "oklch(49.29% 0.01868 250.61)",
+          "oklch(60.71% 0.01868 250.61)",
+          "oklch(72.14% 0.01868 250.61)",
+          "oklch(83.57% 0.01868 250.61)",
+          "oklch(95% 0.01868 250.61)"
+        ]
+      },
+      "tint": {
+        "role": "neutral",
+        "displayName": "Teinte de référence",
+        "tonalRamp": [
+          "oklch(15% 0.01837 258.35)",
+          "oklch(26.43% 0.01837 258.35)",
+          "oklch(37.86% 0.01837 258.35)",
+          "oklch(49.29% 0.01837 258.35)",
+          "oklch(60.71% 0.01837 258.35)",
+          "oklch(72.14% 0.01837 258.35)",
+          "oklch(83.57% 0.01837 258.35)",
+          "oklch(95% 0.01837 258.35)"
+        ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Erreur",
+        "tonalRamp": [
+          "oklch(15% 0.14083 29.76)",
+          "oklch(26.43% 0.14083 29.76)",
+          "oklch(37.86% 0.14083 29.76)",
+          "oklch(49.29% 0.14083 29.76)",
+          "oklch(60.71% 0.14083 29.76)",
+          "oklch(72.14% 0.14083 29.76)",
+          "oklch(83.57% 0.14083 29.76)",
+          "oklch(95% 0.14083 29.76)"
+        ]
+      },
+      "source-muted": {
+        "role": "neutral",
+        "displayName": "Texte sur couverture",
+        "tonalRamp": [
+          "oklch(15% 0.02672 257.03)",
+          "oklch(26.43% 0.02672 257.03)",
+          "oklch(37.86% 0.02672 257.03)",
+          "oklch(49.29% 0.02672 257.03)",
+          "oklch(60.71% 0.02672 257.03)",
+          "oklch(72.14% 0.02672 257.03)",
+          "oklch(83.57% 0.02672 257.03)",
+          "oklch(95% 0.02672 257.03)"
+        ]
+      },
+      "source-rule": {
+        "role": "neutral",
+        "displayName": "Filet sur couverture",
+        "tonalRamp": [
+          "oklch(15% 0.06657 257.21)",
+          "oklch(26.43% 0.06657 257.21)",
+          "oklch(37.86% 0.06657 257.21)",
+          "oklch(49.29% 0.06657 257.21)",
+          "oklch(60.71% 0.06657 257.21)",
+          "oklch(72.14% 0.06657 257.21)",
+          "oklch(83.57% 0.06657 257.21)",
+          "oklch(95% 0.06657 257.21)"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Contour de saisie",
+        "tonalRamp": [
+          "oklch(15% 0.03126 251.34)",
+          "oklch(26.43% 0.03126 251.34)",
+          "oklch(37.86% 0.03126 251.34)",
+          "oklch(49.29% 0.03126 251.34)",
+          "oklch(60.71% 0.03126 251.34)",
+          "oklch(72.14% 0.03126 251.34)",
+          "oklch(83.57% 0.03126 251.34)",
+          "oklch(95% 0.03126 251.34)"
+        ]
+      },
+      "ready": {
+        "role": "success",
+        "displayName": "Prêt",
+        "tonalRamp": [
+          "oklch(15% 0.08128 161.85)",
+          "oklch(26.43% 0.08128 161.85)",
+          "oklch(37.86% 0.08128 161.85)",
+          "oklch(49.29% 0.08128 161.85)",
+          "oklch(60.71% 0.08128 161.85)",
+          "oklch(72.14% 0.08128 161.85)",
+          "oklch(83.57% 0.08128 161.85)",
+          "oklch(95% 0.08128 161.85)"
+        ]
+      },
+      "amber-hover": {
+        "role": "primary",
+        "displayName": "Survol d’envoi",
+        "tonalRamp": [
+          "oklch(15% 0.14988 78.66)",
+          "oklch(26.43% 0.14988 78.66)",
+          "oklch(37.86% 0.14988 78.66)",
+          "oklch(49.29% 0.14988 78.66)",
+          "oklch(60.71% 0.14988 78.66)",
+          "oklch(72.14% 0.14988 78.66)",
+          "oklch(83.57% 0.14988 78.66)",
+          "oklch(95% 0.14988 78.66)"
+        ]
+      },
+      "suggestion-hover": {
+        "role": "neutral",
+        "displayName": "Survol de suggestion",
+        "tonalRamp": [
+          "oklch(15% 0.01431 254.61)",
+          "oklch(26.43% 0.01431 254.61)",
+          "oklch(37.86% 0.01431 254.61)",
+          "oklch(49.29% 0.01431 254.61)",
+          "oklch(60.71% 0.01431 254.61)",
+          "oklch(72.14% 0.01431 254.61)",
+          "oklch(83.57% 0.01431 254.61)",
+          "oklch(95% 0.01431 254.61)"
+        ]
+      },
+      "error-paper": {
+        "role": "error",
+        "displayName": "Fond d’erreur",
+        "tonalRamp": [
+          "oklch(15% 0.01678 31.08)",
+          "oklch(26.43% 0.01678 31.08)",
+          "oklch(37.86% 0.01678 31.08)",
+          "oklch(49.29% 0.01678 31.08)",
+          "oklch(60.71% 0.01678 31.08)",
+          "oklch(72.14% 0.01678 31.08)",
+          "oklch(83.57% 0.01678 31.08)",
+          "oklch(95% 0.01678 31.08)"
+        ]
+      },
+      "error-line": {
+        "role": "error",
+        "displayName": "Contour d’erreur",
+        "tonalRamp": [
+          "oklch(15% 0.08172 28.07)",
+          "oklch(26.43% 0.08172 28.07)",
+          "oklch(37.86% 0.08172 28.07)",
+          "oklch(49.29% 0.08172 28.07)",
+          "oklch(60.71% 0.08172 28.07)",
+          "oklch(72.14% 0.08172 28.07)",
+          "oklch(83.57% 0.08172 28.07)",
+          "oklch(95% 0.08172 28.07)"
+        ]
+      },
+      "source-number": {
+        "role": "neutral",
+        "displayName": "Numéro au repos",
+        "tonalRamp": [
+          "oklch(15% 0.07640 256.45)",
+          "oklch(26.43% 0.07640 256.45)",
+          "oklch(37.86% 0.07640 256.45)",
+          "oklch(49.29% 0.07640 256.45)",
+          "oklch(60.71% 0.07640 256.45)",
+          "oklch(72.14% 0.07640 256.45)",
+          "oklch(83.57% 0.07640 256.45)",
+          "oklch(95% 0.07640 256.45)"
+        ]
+      },
+      "source-count": {
+        "role": "neutral",
+        "displayName": "Compteur",
+        "tonalRamp": [
+          "oklch(15% 0.07804 254.55)",
+          "oklch(26.43% 0.07804 254.55)",
+          "oklch(37.86% 0.07804 254.55)",
+          "oklch(49.29% 0.07804 254.55)",
+          "oklch(60.71% 0.07804 254.55)",
+          "oklch(72.14% 0.07804 254.55)",
+          "oklch(83.57% 0.07804 254.55)",
+          "oklch(95% 0.07804 254.55)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Titre d’accueil",
+        "purpose": "Titre principal ; 34px et 16ch maximum à 760px et moins."
+      },
+      "headline": {
+        "displayName": "Titre des sources",
+        "purpose": "Titre permanent du panneau bleu."
+      },
+      "title": {
+        "displayName": "Titre de passage",
+        "purpose": "Nom d’article dans le contrôle de passage."
+      },
+      "body": {
+        "displayName": "Réponse",
+        "purpose": "Réponses à 68ch maximum ; taille de 16px sur mobile."
+      },
+      "intro": {
+        "displayName": "Introduction",
+        "purpose": "Texte d’accueil à 52ch maximum ; taille de 16px sur mobile."
+      },
+      "question": {
+        "displayName": "Question",
+        "purpose": "Message utilisateur ; taille de 16px sur mobile."
+      },
+      "field": {
+        "displayName": "Saisie",
+        "purpose": "Champ de question et placeholder."
+      },
+      "label": {
+        "displayName": "Signature",
+        "purpose": "Signature de l’assistant au-dessus de la réponse."
+      },
+      "excerpt": {
+        "displayName": "Extrait",
+        "purpose": "Passage cité dans la surface blanche du panneau."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "composer-border",
+        "value": "border-color .15s",
+        "purpose": "Transition du contour du compositeur au focus interne."
+      },
+      {
+        "name": "thinking-breathe",
+        "value": "breathe 1.5s ease-in-out infinite; 50% { opacity: .3; }",
+        "purpose": "Point pendant la recherche ; supprimé avec prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-border-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-max",
+        "value": "1050px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Envoi",
+      "kind": "button",
+      "refersTo": "button-send",
+      "description": "Action principale du compositeur ; désactivée avant disponibilité, pendant la recherche ou si le champ est vide.",
+      "html": "<button type=\"button\" class=\"ds-send\" aria-label=\"Envoyer la question\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 19V5m-6 6 6-6 6 6\"/></svg></button>",
+      "css": ".ds-send{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:var(--amber,#ffc55c);color:var(--blue,#213c68);cursor:pointer}.ds-send svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}.ds-send:hover:not(:disabled){background:#f6b53c}.ds-send:disabled{opacity:.55;cursor:wait}.ds-send:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}"
+    },
+    {
+      "name": "Nouvelle discussion",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action secondaire d’en-tête qui rétablit l’accueil et les sources vides.",
+      "html": "<button type=\"button\" class=\"ds-new\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M10 4v12M4 10h12\"/></svg>Nouvelle discussion</button>",
+      "css": ".ds-new{display:flex;align-items:center;gap:8px;background:var(--white,#fff);color:var(--ink,#20324e);border:1px solid var(--line,#cdd7e2);border-radius:8px;padding:10px 14px;min-height:44px;font-family:Atkinson,'Segoe UI',sans-serif;font-size:14px;font-weight:600;cursor:pointer}.ds-new svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ds-new:hover{background:var(--paper,#edf2f6);border-color:var(--cobalt,#3157a4)}.ds-new:disabled{opacity:.55;cursor:wait}.ds-new:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}@media(max-width:760px){.ds-new{font-size:12px;padding:8px 10px;gap:5px}.ds-new svg{width:16px;height:16px}}"
+    },
+    {
+      "name": "Consultation des sources",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Lien d’action sous la réponse ; ouvre sa première référence.",
+      "html": "<button type=\"button\" class=\"ds-view\">Consulter les sources de cette réponse</button>",
+      "css": ".ds-view{background:transparent;color:var(--cobalt,#3157a4);border:0;border-bottom:1px solid currentColor;padding:2px 0;font-family:Atkinson,'Segoe UI',sans-serif;font-size:13px;cursor:pointer}.ds-view:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}"
+    },
+    {
+      "name": "Reprise après erreur",
+      "kind": "button",
+      "refersTo": "button-retry",
+      "description": "Reprend la question dans son tour existant après une erreur.",
+      "html": "<button type=\"button\" class=\"ds-retry\">Réessayer cette question</button>",
+      "css": ".ds-retry{margin-top:10px;background:var(--white,#fff);border:1px solid #c8877e;border-radius:6px;color:var(--error,#9c3428);padding:7px 12px;min-height:40px;font-family:Atkinson,'Segoe UI',sans-serif;font-size:15px;cursor:pointer}.ds-retry:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}"
+    },
+    {
+      "name": "Compositeur",
+      "kind": "input",
+      "refersTo": "composer",
+      "description": "Champ accessible sans bord propre dans une surface blanche ; le contour du groupe indique le focus.",
+      "html": "<form class=\"ds-composer\"><label class=\"ds-sr\" for=\"ds-question\">Votre question sur l’astronomie</label><textarea id=\"ds-question\" class=\"ds-question\" rows=\"1\" maxlength=\"1000\" placeholder=\"Votre question sur l’astronomie…\" required></textarea></form>",
+      "css": ".ds-composer{display:flex;align-items:flex-end;gap:12px;background:var(--white,#fff);border:1px solid #a8b8ca;border-radius:var(--radius,14px);padding:12px 12px 12px 20px;transition:border-color .15s}.ds-composer:focus-within{border-color:var(--cobalt,#3157a4)}.ds-question{resize:none;border:0;background:transparent;color:var(--ink,#20324e);caret-color:var(--cobalt,#3157a4);min-width:0;flex:1;min-height:40px;max-height:140px;padding:9px 0;line-height:1.5;font-family:Atkinson,'Segoe UI',sans-serif;font-size:16px}.ds-question::placeholder{color:var(--muted,#52647a)}.ds-question:focus-visible{outline:none}.ds-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(prefers-reduced-motion:reduce){.ds-composer{transition:none}}"
+    },
+    {
+      "name": "Citation",
+      "kind": "chip",
+      "refersTo": "citation",
+      "description": "Bouton de référence : la sélection et le survol partagent le fond ambre du passage actif.",
+      "html": "<button type=\"button\" class=\"ds-citation\" aria-label=\"Lire la source 1\" aria-pressed=\"false\">1</button> <button type=\"button\" class=\"ds-citation ds-selected\" aria-label=\"Lire la source 2\" aria-pressed=\"true\">2</button>",
+      "css": ".ds-citation{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:27px;vertical-align:baseline;font-family:Atkinson,'Segoe UI',sans-serif;font-size:12px;font-weight:700;background:var(--tint,#e3ebf7);color:var(--blue,#213c68);border:0;border-radius:6px;margin:0 2px;padding:0 5px;cursor:pointer}.ds-citation:hover,.ds-citation.ds-selected{background:var(--amber,#ffc55c)}.ds-citation:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}"
+    },
+    {
+      "name": "Question",
+      "kind": "card",
+      "refersTo": "question",
+      "description": "Message utilisateur aligné à droite, avec une silhouette asymétrique et des retours à la ligne conservés.",
+      "html": "<div class=\"ds-user\">Comment le Soleil produit-il son énergie ?</div>",
+      "css": ".ds-user{max-width:85%;margin:0 0 25px auto;border-radius:16px 16px 4px 16px;background:var(--blue,#213c68);color:var(--white,#fff);padding:16px 20px;font-family:Atkinson,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:760px){.ds-user{max-width:95%;font-size:16px}}"
+    },
+    {
+      "name": "Passage source",
+      "kind": "custom",
+      "refersTo": "passage",
+      "description": "Extrait actif sur fond de couverture ; numéro ambre, titre, section, lien de révision et attribution. Le bouton de retour appartient au flux mobile.",
+      "html": "<section class=\"ds-source-panel\"><button type=\"button\" class=\"ds-back\">Revenir à la réponse</button><section class=\"ds-source-entry\"><button type=\"button\" class=\"ds-source-toggle ds-source-selected\" aria-expanded=\"true\" aria-controls=\"ds-source-body\"><span class=\"ds-source-number\">1</span><span class=\"ds-source-name\">Système solaire<span class=\"ds-source-section\">Soleil</span></span></button><div id=\"ds-source-body\" class=\"ds-source-body\"><p>La température à la surface visible du Soleil est de 5 570 K tandis qu’elle atteint quinze millions de kelvins en son centre.</p><a class=\"ds-source-link\" href=\"https://fr.wikipedia.org/wiki/Syst%C3%A8me_solaire\" target=\"_blank\" rel=\"noopener noreferrer\">Ouvrir l’article sur Wikipédia</a><div class=\"ds-source-attribution\">Contributeurs et contributrices de Wikipédia. Creative Commons Attribution-Share Alike 4.0.</div></div></section></section>",
+      "css": ".ds-source-panel{background:var(--blue,#213c68);color:var(--white,#fff);padding:34px 26px 22px;font-family:Atkinson,'Segoe UI',sans-serif}.ds-source-entry{border-top:1px solid #506a8f;border-bottom:1px solid #506a8f}.ds-source-toggle{background:transparent;border:0;color:var(--white,#fff);width:100%;display:flex;align-items:flex-start;gap:10px;text-align:left;padding:17px 3px;min-height:48px;font-family:Atkinson,'Segoe UI',sans-serif;cursor:pointer}.ds-source-number{display:flex;align-items:center;justify-content:center;min-width:27px;height:27px;background:#3a5881;font-size:12px;border-radius:6px;font-weight:700}.ds-source-selected .ds-source-number{background:var(--amber,#ffc55c);color:var(--blue,#213c68)}.ds-source-name{font-size:15px;font-weight:650;line-height:1.4;overflow-wrap:anywhere}.ds-source-section{display:block;color:#d1ddee;font-size:12px;font-weight:400;margin-top:5px}.ds-source-body{background:var(--white,#fff);color:var(--ink,#20324e);padding:17px;border-radius:10px;margin-bottom:18px;font-size:14px;line-height:1.8;overflow-wrap:anywhere}.ds-source-body p{margin:0 0 15px;white-space:pre-wrap}.ds-source-link{color:var(--cobalt,#3157a4);text-underline-offset:4px;font-size:13px;display:inline-block;line-height:1.5}.ds-source-attribution{font-size:11px;color:var(--muted,#52647a);margin-top:14px;line-height:1.6}.ds-back{display:none}.ds-source-toggle:focus-visible{outline:3px solid var(--amber,#ffc55c);outline-offset:4px}.ds-source-link:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}@media(max-width:760px){.ds-source-panel{padding:28px 24px}.ds-back{display:block;background:transparent;color:#fff;border:0;border-bottom:1px solid #d1ddee;padding:6px 0;margin:0 0 18px;font-family:Atkinson,'Segoe UI',sans-serif;font-size:13px;min-height:40px;cursor:pointer}.ds-back:hover{color:var(--amber,#ffc55c)}.ds-back:focus-visible{outline:3px solid var(--amber,#ffc55c);outline-offset:4px}}"
+    },
+    {
+      "name": "Question suggérée",
+      "kind": "custom",
+      "refersTo": "suggestion",
+      "description": "Ligne éditoriale séparée par un filet ; catégorie, vraie question et chevron.",
+      "html": "<button type=\"button\" class=\"ds-suggestion\"><span>Le Soleil</span>Comment produit-il son énergie ?<svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"m7 4 6 6-6 6\"/></svg></button>",
+      "css": ".ds-suggestion{display:grid;grid-template-columns:118px 1fr 20px;align-items:center;gap:12px;text-align:left;background:transparent;border:0;border-top:1px solid var(--line,#cdd7e2);border-bottom:1px solid var(--line,#cdd7e2);color:var(--ink,#20324e);padding:17px 0;font-family:Atkinson,'Segoe UI',sans-serif;font-size:15px;line-height:1.35;cursor:pointer}.ds-suggestion>span{font-size:13px;color:var(--muted,#52647a)}.ds-suggestion:hover{color:var(--cobalt,#3157a4);background:#e4ebf4}.ds-suggestion svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ds-suggestion:disabled{opacity:.55;cursor:wait}.ds-suggestion:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}@media(max-width:1050px){.ds-suggestion{grid-template-columns:1fr 20px;gap:5px}.ds-suggestion>span{grid-column:1;display:block}.ds-suggestion svg{grid-column:2;grid-row:1/3}}@media(max-width:760px){.ds-suggestion{font-size:14px;padding:14px 0}.ds-suggestion>span{font-size:12px}}"
+    },
+    {
+      "name": "Marque et en-tête",
+      "kind": "nav",
+      "description": "Lien de marque, description secondaire et action de nouvelle discussion ; aucun menu additionnel.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"/\" aria-label=\"AstroRAG, accueil\"><svg viewBox=\"0 0 40 40\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"9\" fill=\"#213c68\"/><ellipse cx=\"20\" cy=\"20\" rx=\"18\" ry=\"7\" transform=\"rotate(-35 20 20)\" fill=\"none\" stroke=\"#3157a4\" stroke-width=\"1.8\"/><circle cx=\"33\" cy=\"10\" r=\"3.8\" fill=\"#ffc55c\" stroke=\"#213c68\" stroke-width=\"1.2\"/></svg><span>AstroRAG</span></a><span class=\"ds-header-description\">L’astronomie, sources à l’appui.</span><button type=\"button\" class=\"ds-header-new\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M10 4v12M4 10h12\"/></svg>Nouvelle discussion</button></header>",
+      "css": ".ds-header{height:88px;display:flex;align-items:center;gap:36px;padding:0 40px;background:var(--white,#fff);border-bottom:1px solid var(--line,#cdd7e2);font-family:Atkinson,'Segoe UI',sans-serif}.ds-brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-size:24px;font-weight:750;letter-spacing:-.035em;color:var(--blue,#213c68)}.ds-brand svg{width:36px;height:36px}.ds-header-description{font-size:15px;color:var(--muted,#52647a)}.ds-header-new{display:flex;align-items:center;gap:8px;background:var(--white,#fff);color:var(--ink,#20324e);border:1px solid var(--line,#cdd7e2);border-radius:8px;padding:10px 14px;min-height:44px;font-family:Atkinson,'Segoe UI',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-left:auto}.ds-header-new svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.ds-header-new:hover{background:var(--paper,#edf2f6);border-color:var(--cobalt,#3157a4)}.ds-brand:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}.ds-header-new:focus-visible{outline:3px solid var(--cobalt,#3157a4);outline-offset:4px}@media(max-width:1050px){.ds-header{padding:0 26px;gap:20px}}@media(max-width:760px){.ds-header{height:72px;padding:0 20px;gap:10px}.ds-brand{font-size:21px;gap:7px}.ds-brand svg{width:29px;height:29px}.ds-header-description{display:none}.ds-header-new{font-size:12px;padding:8px 10px;gap:5px}.ds-header-new svg{width:16px;height:16px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "L’édition scientifique des années 1970",
+    "overview": "Le système reprend le bleu d’une couverture scientifique, le papier froid et un repère ambre pour rendre une conversation documentée lisible. Le dessin orbital reste léger ; les titres humanistes, les filets et les surfaces franches portent l’identité. Cette direction correspond au monde retenu dans le brief : candidate 4, seed `279cb4bd`.\n\nL’interface privilégie la lecture puis la vérification d’un passage. La densité reste mesurée, avec des réponses ouvertes sur le fond de page et des extraits blancs dans un panneau bleu. Les contrôles suivent les usages contemporains du Web. La documentation décrit les valeurs livrées dans `web/style.css` et les états de `web/app.js` ; les paramètres du modèle restent hors de l’interface de conversation.",
+    "keyCharacteristics": [
+      "Papier froid et couverture bleue, sans ombre.",
+      "Une seule famille humaniste auto-hébergée.",
+      "Ambre commun à la citation et au passage sélectionnés.",
+      "Filets fins, réponses aérées et extraits directement consultables."
+    ],
+    "rules": [
+      {
+        "name": "The Shared Selection Rule",
+        "body": "Une citation sélectionnée et le numéro de son passage utilisent le même ambre ; cet état est lié à une réponse précise, jamais au seul numéro de source.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Measure Rule",
+        "body": "Les réponses restent limitées à 68ch et l’introduction à 52ch ; les longues chaînes se replient dans les questions, réponses et sources.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "Les surfaces se distinguent par la couleur, l’espace et les filets ; elles n’acquièrent pas d’ombre au survol ou au focus.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do conserver la famille Atkinson auto-hébergée et la casse naturelle des libellés.",
+      "Do lier visuellement et sémantiquement la citation au passage de la réponse sélectionnée.",
+      "Do préserver les mesures de lecture, le repli des longues chaînes et les états de focus visibles.",
+      "Do garder les sources dans le flux vertical sur mobile et un retour explicite à la réponse.",
+      "Do afficher chargement, erreur et insuffisance des sources par des mots compréhensibles."
+    ],
+    "donts": [
+      "Don't ajouter d’ombres ou de surfaces flottantes aux composants plats de ce système.",
+      "Don't transformer l’astronomie en cockpit ou en fond de ciel étoilé décoratif.",
+      "Don't présenter un faux échange pour remplir l’état vide.",
+      "Don't suggérer une conservation des discussions après actualisation ou fermeture de la page."
+    ]
+  }
+}

@@ -4,7 +4,7 @@ Projet personnel pour apprendre à construire un RAG sur l’astronomie.
 
 L’objectif est de répondre à des questions en français à partir d’une petite collection d’articles Wikipédia, en affichant les sources et les passages utilisés.
 
-## Première version visée
+## Fonctionnalités
 
 - Une collection de 20 à 30 articles sur l’astronomie.
 - Une recherche des passages pertinents pour une question.
@@ -12,7 +12,28 @@ L’objectif est de répondre à des questions en français à partir d’une pe
 - Un signalement lorsque les documents ne permettent pas de répondre.
 - Une interface simple pour poser des questions.
 
-La collecte, le découpage, les embeddings, la recherche et la génération de réponses avec Gemini sont implémentés. L’interface de discussion reste à réaliser.
+La collecte, le découpage, les embeddings, la recherche et la génération de réponses avec Gemini sont implémentés. L’interface locale permet de discuter et d’ouvrir les passages cités.
+
+## Ouvrir l’interface
+
+Dans le dossier du projet, après avoir préparé le corpus, l’index et la clé Gemini avec les étapes ci-dessous :
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe app.py
+```
+
+Ouvrir [http://127.0.0.1:8000](http://127.0.0.1:8000). Attendre le message « Prêt à explorer », puis poser une question. Le modèle d’embeddings et l’index sont chargés une fois au démarrage du serveur et réutilisés pour les questions suivantes. Pour arrêter l’application, utiliser `Ctrl+C` dans le terminal. Si le port est déjà occupé : `python app.py --port 8001` avec le Python de l’environnement.
+
+![Interface AstroRAG : discussion sur le Soleil et passage source consultable](docs/interface.png)
+
+Une référence numérotée ouvre son passage dans le panneau des sources. Sur téléphone, les sources sont sous la discussion, avec un bouton pour revenir à la réponse. « Nouvelle discussion » efface les échanges affichés, sans recharger le modèle.
+
+L’historique reste uniquement en mémoire dans la page : il est effacé à l’actualisation ou à la fermeture, et n’est pas enregistré sur disque par l’interface. Les trois derniers échanges servent à reformuler une question de suite comme « Et sa température ? ». Ils permettent d’identifier le sujet ; les affirmations de la réponse doivent toujours provenir des passages retrouvés. Une question avec historique utilise un appel Gemini pour la reformulation, puis un autre pour la réponse. Une première question indépendante utilise un seul appel.
+
+La clé reste côté serveur dans `.env` et n’est jamais transmise à l’interface. Le serveur écoute uniquement sur cet ordinateur. Les erreurs de quota ou de disponibilité sont affichées avec un bouton de nouvel essai, sans appel automatique supplémentaire.
+
+Pour une nouvelle installation, suivre dans l’ordre : création de l’environnement, collecte, découpage, construction de l’index, configuration de la clé Gemini et lancement de `app.py`. Les étapes détaillées figurent dans les sections suivantes. Les données et le modèle locaux ne sont pas inclus dans Git.
 
 ## Suivi du projet
 
@@ -221,3 +242,16 @@ L’intégration utilise l’API REST GenerateContent, documentée par Google : 
 ```
 
 Ces vérifications couvrent le nettoyage, les révisions, la reprise depuis le cache, le découpage, la recherche, le classement par cosinus, les références des réponses, l’abstention et les erreurs réseau. Les tests utilisent des réponses API simulées et ne consomment pas le quota Gemini.
+
+Les tests du serveur couvrent aussi le chargement unique du modèle, la validation de l’historique et les requêtes de l’interface.
+
+Pour vérifier l’interface dans Microsoft Edge installé sur Windows, installer les outils facultatifs et laisser le serveur lancé dans un autre terminal :
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe scripts/check_interface.py
+```
+
+Le contrôle navigateur utilise des réponses simulées pour les erreurs, les citations et le nouvel essai. Ajouter `--live` pour vérifier une vraie question sur le Soleil puis « Et sa température ? » : cela effectue trois appels Gemini. Les captures et le bilan restent dans `.impeccable/review/`, ignoré par Git.
+
+Vérification du 24 octobre 2026 : 48 tests hors ligne réussis, parcours navigateur sur ordinateur et mobile, référence ouvrant le bon passage, nouvel essai sans doublon, historique effacé à l’actualisation, absence de débordement horizontal et de faute JavaScript détectée. Le parcours réel confirme la compréhension d’une question de suite et un seul chargement du modèle pour l’ensemble de la discussion.
