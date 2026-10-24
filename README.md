@@ -12,7 +12,7 @@ L’objectif est de répondre à des questions en français à partir d’une pe
 - Un signalement lorsque les documents ne permettent pas de répondre.
 - Une interface simple pour poser des questions.
 
-La sélection des sources, la collecte, le découpage, les embeddings et la recherche sont prêts. La génération des réponses reste à réaliser.
+La collecte, le découpage, les embeddings, la recherche et la génération de réponses avec Gemini sont implémentés. L’interface de discussion reste à réaliser.
 
 ## Suivi du projet
 
@@ -148,10 +148,76 @@ Le bilan est enregistré dans `data/index/evaluation.json`. Le contrôle automat
 
 Vérification initiale du 24 octobre 2026 : les 1 109 passages donnent 1 174 entrées adaptées à la limite de 512 tokens, avec des vecteurs de dimension 384. Les dix questions passent le contrôle indicatif dans les cinq premiers résultats. La relecture retrouve notamment l’explication des transits d’exoplanètes au rang 2 et des informations expliquant l’intérêt de l’infrarouge pour James Webb aux rangs 3 et 4. Le premier résultat n’est donc pas toujours le plus utile. La recherche sur l’énergie du Soleil retrouve dès le rang 1 un passage sur la fusion de l’hydrogène en hélium.
 
+## Répondre avec Gemini 3.5 Flash-Lite
+
+Le script `scripts/answer_question.py` utilise la recherche locale, puis transmet la question et les passages retenus à `gemini-3.5-flash-lite`. Le modèle de génération est distinct du modèle local qui calcule les embeddings. L’index existant est réutilisé.
+
+Mettre à jour les bibliothèques :
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Créer une clé depuis [Google AI Studio](https://aistudio.google.com/apikey). Préparer le fichier privé s’il n’existe pas encore :
+
+```powershell
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+```
+
+Ouvrir `.env` dans un éditeur et renseigner la clé sur cette ligne :
+
+```dotenv
+GEMINI_API_KEY=votre_cle_ici
+```
+
+Le fichier `.env` est ignoré par Git. `.env.example`, qui ne contient aucune clé, sert de modèle. Une variable `GEMINI_API_KEY` déjà définie dans la session a priorité sur `.env`. Ne pas envoyer la clé dans un chat ou un commit.
+
+Le niveau de facturation et les quotas sont ceux du projet Google choisi dans AI Studio. Pour démarrer avec l’offre gratuite, utiliser un projet au niveau Free Tier. Le script n’active pas la facturation et ne fait pas de nouvel essai automatique après un échec.
+
+Poser une question :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/answer_question.py "Comment le Soleil produit-il son énergie ?"
+```
+
+Le programme retrouve cinq passages par défaut et demande une réponse courte en français. Chaque affirmation est accompagnée de références comme `[1]`, dont les liens vers les révisions Wikipédia sont construits à partir des passages effectivement transmis. Les références inexistantes ou les réponses interrompues sont refusées. Si le modèle juge les passages insuffisants, le programme affiche un message d’abstention.
+
+Ces contrôles vérifient la présence des références et leur origine ; ils ne prouvent pas que chaque affirmation est soutenue par son passage. Une relecture reste nécessaire. Aucun outil de recherche web de Gemini n’est activé : les données utilisées viennent de notre corpus.
+
+Pour examiner les passages envoyés et vérifier les citations :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/answer_question.py "Comment détecte-t-on une exoplanète par transit ?" --show-passages
+```
+
+Le dernier résultat réussi, les passages et les compteurs de tokens sont conservés localement dans `data/generation/last_answer.json`. Ces fichiers sont ignorés par Git et ne contiennent pas la clé d’API. En cas d’échec, le résultat précédent reste présent.
+
+Pour préparer une requête sans appeler Gemini et sans clé :
+
+```powershell
+.\.venv\Scripts\python.exe scripts/answer_question.py "Comment le Soleil produit-il son énergie ?" --dry-run
+```
+
+La prévisualisation est enregistrée dans `data/generation/request_preview.json`. Elle permet de voir la question, les instructions et les passages transmis. Le nombre de passages peut être réglé avec `--top-k` entre 1 et 10. Le raisonnement est réglé sur `MINIMAL` et la sortie est limitée à 1 200 tokens, réflexion comprise. Une réponse atteignant cette limite est refusée plutôt qu’affichée partiellement.
+
+## Vérifier les réponses générées
+
+Trois questions sont définies dans `data/answer_evaluation_questions.json` : énergie solaire, transits d’exoplanètes et température future précise de Mars, absente du corpus.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/answer_question.py --evaluate
+```
+
+Cette commande effectue trois appels Gemini, espacés de dix secondes, et enregistre `data/generation/evaluation.json`. Le contrôle automatique vérifie le format, les références et le statut d’abstention attendu. Les critères de relecture de chaque question sont inclus dans le fichier de questions. Il faut ensuite vérifier manuellement les affirmations et leurs sources.
+
+Vérification initiale du 24 octobre 2026 : les trois questions ont donné le statut attendu. La relecture des réponses et des sources confirme la fusion de l’hydrogène dans le Soleil, l’explication du transit par une diminution périodique de luminosité et l’abstention pour la température précise de Mars en 2100. Cela constitue un premier contrôle sur trois exemples, pas une garantie pour toutes les questions.
+
+L’intégration utilise l’API REST GenerateContent, documentée par Google : [clés d’API](https://ai.google.dev/gemini-api/docs/api-key), [sorties structurées](https://ai.google.dev/gemini-api/docs/generate-content/structured-output), [réglage du raisonnement](https://ai.google.dev/gemini-api/docs/generate-content/thinking).
+
 ## Vérifications hors ligne
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Ces vérifications couvrent notamment le nettoyage, les révisions, les pages d’homonymie, la reprise depuis le cache, les erreurs réseau, la conservation du texte lors du découpage, le chevauchement et les sources des passages.
+Ces vérifications couvrent le nettoyage, les révisions, la reprise depuis le cache, le découpage, la recherche, le classement par cosinus, les références des réponses, l’abstention et les erreurs réseau. Les tests utilisent des réponses API simulées et ne consomment pas le quota Gemini.

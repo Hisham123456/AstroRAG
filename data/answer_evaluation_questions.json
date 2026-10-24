@@ -1,0 +1,17 @@
+[
+  {
+    "question": "Comment le Soleil produit-il son énergie ?",
+    "expected_answerable": true,
+    "manual_check": "Vérifier la fusion de l'hydrogène en hélium et que les références soutiennent chaque affirmation."
+  },
+  {
+    "question": "Comment détecte-t-on une exoplanète par la méthode des transits ?",
+    "expected_answerable": true,
+    "manual_check": "Vérifier que la réponse explique la diminution périodique de luminosité lorsque la planète passe devant son étoile."
+  },
+  {
+    "question": "Quelle sera la température exacte à la surface de Mars le 1er janvier 2100 à midi ?",
+    "expected_answerable": false,
+    "manual_check": "Les températures générales ne permettent pas de donner cette valeur future précise ; le système doit signaler que les passages ne suffisent pas."
+  }
+]

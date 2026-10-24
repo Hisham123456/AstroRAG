@@ -24,12 +24,14 @@ Vérifié sur les dix questions de `data/evaluation_questions.json` : des passag
 
 ## v0.3.0 — Générer des réponses avec sources
 
-- [ ] Relier les passages retrouvés à un modèle de langage.
-- [ ] Afficher des références liées aux sources effectivement fournies au modèle.
-- [ ] Demander au modèle de signaler quand les informations sont insuffisantes.
-- [ ] Vérifier les réponses sur des questions couvertes et non couvertes par le corpus.
+- [x] Relier les passages retrouvés à un modèle de langage.
+- [x] Afficher des références liées aux sources effectivement fournies au modèle.
+- [x] Demander au modèle de signaler quand les informations sont insuffisantes.
+- [x] Vérifier les réponses sur des questions couvertes et non couvertes par le corpus.
 
 Validation : contrôler manuellement que les affirmations des réponses sont soutenues par les passages cités et documenter les limites observées.
+
+Vérification initiale : trois essais réels avec `gemini-3.5-flash-lite`, sur l’énergie solaire, les transits d’exoplanètes et une température future précise de Mars. Les deux réponses factuelles ont été relues avec leurs passages cités ; la troisième question a produit une abstention. Les contrôles de références vérifient leur origine et leur présence, sans prouver automatiquement la véracité de chaque affirmation. Une première indisponibilité temporaire du fournisseur a aussi été observée et est signalée sans nouvel appel automatique.
 
 ## v1.0.0 — Livrer une démonstration utilisable
 

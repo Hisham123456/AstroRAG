@@ -20,6 +20,7 @@ data/processed/
 data/chunks/
 data/collection_report.json
 data/index/
+data/generation/
 .chroma/
 chroma_db/
 .cache/
