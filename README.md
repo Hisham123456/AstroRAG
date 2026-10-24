@@ -12,7 +12,7 @@ L’objectif est de répondre à des questions en français à partir d’une pe
 - Un signalement lorsque les documents ne permettent pas de répondre.
 - Une interface simple pour poser des questions.
 
-Le développement n’a pas encore commencé. Les choix techniques seront précisés au fil du projet.
+La sélection des sources est prête. La récupération des textes et le développement du RAG restent à réaliser.
 
 ## Suivi du projet
 
@@ -25,6 +25,10 @@ Voir [ROADMAP.md](ROADMAP.md) pour les grandes étapes et les critères de valid
 - Les petits ajustements et corrections sont décrits directement dans les commits.
 
 ## Données et sources
+
+La liste des 20 articles Wikipédia en français est enregistrée dans [data/sources.json](data/sources.json). Chaque entrée contient un identifiant stable, le titre de la page, son URL et son thème. Les pages ont été vérifiées lors de la sélection le 24 octobre 2026.
+
+La collecte utilisera l’API MediaWiki pour récupérer les articles sélectionnés. Il ne s’agit pas d’explorer automatiquement les liens de Wikipédia. Le futur script résoudra les redirections et conservera la révision exacte de chaque article téléchargé.
 
 Chaque article collecté devra conserver son titre, son URL, sa date de récupération et les informations de licence et d’attribution applicables.
 

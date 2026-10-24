@@ -4,8 +4,8 @@ Chaque section peut devenir une issue GitHub. Il n’est pas nécessaire de cré
 
 ## v0.1.0 — Constituer le corpus
 
-- [ ] Sélectionner 20 à 30 articles d’astronomie en français.
-- [ ] Enregistrer la liste des sources dans le dépôt.
+- [x] Sélectionner 20 à 30 articles d’astronomie en français.
+- [x] Enregistrer la liste des sources dans le dépôt.
 - [ ] Créer un script de récupération et de nettoyage des textes.
 - [ ] Conserver les métadonnées des sources et leur attribution.
 
