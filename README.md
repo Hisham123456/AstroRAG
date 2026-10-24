@@ -16,6 +16,12 @@ La collecte, le découpage, les embeddings, la recherche et la génération de r
 
 ## Ouvrir l’interface
 
+Une fois le projet préparé, **double-cliquer sur `Lancer AstroRAG.bat`** dans l’Explorateur de fichiers. Le lanceur démarre le serveur local et ouvre le navigateur automatiquement. Garder la fenêtre de lancement ouverte pendant l’utilisation ; `Ctrl+C` permet d’arrêter le chat. Si AstroRAG fonctionne déjà, le lanceur ouvre simplement une nouvelle page, sans charger un deuxième modèle.
+
+Pour l’avoir sur le Bureau : clic droit sur le fichier → « Afficher plus d’options » → « Envoyer vers » → « Bureau (créer un raccourci) ». Le fichier d’origine reste dans le projet.
+
+Le lancement manuel reste possible :
+
 Dans le dossier du projet, après avoir préparé le corpus, l’index et la clé Gemini avec les étapes ci-dessous :
 
 ```powershell
